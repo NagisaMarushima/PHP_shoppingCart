@@ -18,21 +18,21 @@ $_SESSION['card']=[
   <ol>
     <li>
 お名前<span class="indeed">必須</span>
-<input type="textbox" size="25" name="name" value="<?php echo $_SESSION['card']['name']?>">
+<input type="textbox" size="25" name="name" value="<?php echo $_SESSION['card']['name']?>"class="customer">
 </li>
 <li>
 カード番号<span class="indeed">必須</span>
-<input type="textbox" size="25" name="number" value="<?php echo $_SESSION['card']['number']?>">
+<input type="textbox" size="25" name="number" value="<?php echo $_SESSION['card']['number']?>"class="customer">
 </li>
 <li>カード会社<span class="indeed">必須</span>
 <input type="radio" name="brand"><label for="brand">JCB</label>
 <input type="radio" name="brand"><label for="brand" checked>Visa</label>
 <input type="radio" name="brand"><label for="brand">Master Card</label></li>
 <li>有効期限<span class="indeed">必須</span>
-<input type="textbox" size="4" name="varified_month" value="<?php echo $_SESSION['card']['varified_month']?>">
-<input type="textbox" size="4" name="varified_year" value="<?php echo $_SESSION['card']['varified_year']?>"></li>
+<input type="textbox" size="4" name="varified_month" value="<?php echo $_SESSION['card']['varified_month']?>"class="customer">
+<input type="textbox" size="4" name="varified_year" value="<?php echo $_SESSION['card']['varified_year']?>"class="customer"></li>
 <li>セキュリティコード<span class="indeed">必須</span>
-<input type="textbox" size="25" name="security_code" value="<?php echo $_SESSION['card']['security_code']?>"></li>
+<input type="textbox" size="25" name="security_code" value="<?php echo $_SESSION['card']['security_code']?>"class="customer"></li>
 
 <input type="submit" class="inputForm" value="入力確認する">
 </form>
