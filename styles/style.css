@@ -1,0 +1,792 @@
+
+/* 
+課題
+カード入力フォームを作る
+
+フォームにて顧客情報の再更新ができない問題
+フォームにて空欄エラーを出せない問題（null情報を弾ければ）
+再計算のやり方（あれはどうでしょう）
+
+検索フォーム
+
+*/
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+body{
+  font-family: 'Noto Sans JP',sans-serif;
+  font-size: 16px;
+  color: #7F5539;
+  line-height: 1.6;
+}
+
+
+header{
+  background-color: #EDE0D4;
+}
+
+header .modified{
+  width: 83px;
+}
+
+header nav{
+  padding: 16px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header nav>img{
+  width:62px;
+  height:53px;
+}
+
+header nav div{
+  display: flex;
+  gap: 12px;
+
+}
+
+header nav div img{
+  height: 35px;
+
+}
+
+header form{
+  width: 100%;
+}
+
+header input{
+border: #7F5539 solid 2px;
+display: inline-flex;
+height: 37px;
+}
+
+header input:first-child{
+  background-color: #D9D9D9;
+}
+header input:last-child{
+width: 318px;
+}
+
+
+/* ここエラー頻発！ */
+
+
+.pan{
+  border-bottom: 1px solid #7F5539;
+  line-height: 2;
+}
+
+
+.welcome{
+  height: 36px;
+}
+
+.hero{
+  height: 200px;
+  background:url("../images/unsplash1.jpg");
+  background-size: cover;
+}
+
+section{
+  text-align: center;
+}
+
+h1{
+  margin: 20px auto;
+  width: fit-content;
+  font-size: 20px;
+  line-height: 2;
+  border-bottom: #FFD233 solid 2px;
+}
+
+
+
+h2{
+  width: fit-content;
+  margin: 20px auto;
+}
+
+
+
+.s2{
+  height: 568px;
+  background:url("../images/introduct.png");
+  background-size:cover;
+  background-position: center;
+}
+
+
+
+.s2 p{
+  color: #FFF;
+   padding-top: 100px;
+  place-content: center;
+
+}
+
+.s2 p span:first-child{
+  font-size: 24px;
+}
+
+.s2 p span:nth-of-type(3){
+ font-size: 20px;
+}
+
+.s1 {
+  width: 335px;
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 157px 83px;
+  gap: 20px;
+}
+
+.s1 a{
+  display: inline-block;
+}
+
+.s1 a:first-child{
+  position:relative;
+  background:url("../images/donuts5.png");
+  background-size: cover;
+}
+
+.s1 p{
+  color: #fff;
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+}
+  
+.s1 a:nth-child(2){
+  position:relative;
+  background:url("../images/liveWithDonuts.png");
+  background-size: cover;
+}
+
+.s1 a:last-child{
+  position:relative;
+  background:url("../images/banner.png");
+  background-size: cover;
+  grid-column: 1/3;
+}
+
+.s3{
+  margin: 120px auto;
+}
+
+header ul img{
+  margin: 12px;
+}
+
+/* メニューを画面上部に固定表示しています */
+.gMenu {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+}
+/* メニューアイコンを画面右上に固定しています */
+.gMenu .menuIcon {
+  cursor: pointer;
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  padding-top: 38px;
+  padding-left: 26px;
+}
+/* メニューアイコン（三本線）の真ん中の線です */
+.gMenu .menuIcon .navicon {
+  background: #7F5539; /* 色は自由に変更可能です */
+  display: block;
+  height: 3px; /* 太さ */
+  width: 25px; /* 長さ */
+  position: relative;
+  transition: background .4s ease-out; /* 形が変わる時のアニメーション */
+}
+/* メニューアイコン（三本線）の上と下の線を疑似要素で追加 */
+.gMenu .menuIcon .navicon::before,
+.gMenu .menuIcon .navicon::after {
+  background: #7F5539; /* 色は自由に変更可能です */
+  content: '';
+  display: block;
+  height: 100%;
+  position: absolute;
+  transition: all .4s ease-out; /* 形が変わる時のアニメーション */
+  width: 100%;
+}
+.gMenu .menuIcon .navicon::before {top: 10px;} /* 位置を上にずらしています */
+.gMenu .menuIcon .navicon::after {top: -10px;} /* 位置を下にずらしています */
+/* 表示されるメニューです */
+.gMenu .menu {
+  background-color: #B17852;
+  color:#FFF;
+  overflow: hidden;
+  max-height: 0; /* ★最初は高さを0にして非表示状態に */
+  transition: max-height .6s; /* 表示されるときのアニメーション */
+  text-align: center;
+}
+/* メニュー部分のデザインです */
+.gMenu .menu li:first-of-type {
+  padding-top: 50px;
+}
+.gMenu .menu li a {
+  display: block;
+  border-bottom: #FFF 1px solid;
+  padding: 24px 20px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.gMenu .menu li a:hover {
+  background-color: #f4f4f4;
+}
+/* チェックボックスは常に非表示です */
+.gMenu .menuBtn ,.menu {
+  display: none;
+}
+/* ▼▼▼以下はチェックボックスがONの時の状態です▼▼▼ */
+.gMenu .menuBtn:checked ~ .menu {
+  display: block;
+  width: 100%;
+  max-height: 488px; /* ★チェックボックスがオンの時高さを338pxにして表示させます */
+  transition:max-height .6s;
+}
+/* メニューボタンの中央の線を非表示に */
+.gMenu .menuBtn:checked ~ .menuIcon .navicon {background: transparent;}
+
+/* メニューボタンの上下の線を45度傾けて✕印を作ります */
+.gMenu .menuBtn:checked ~ .menuIcon .navicon::before {transform: rotate(-45deg);top: 0; background: #fff;}
+.gMenu .menuBtn:checked ~ .menuIcon .navicon::after {transform: rotate(45deg);top: 0; background: #fff;}
+
+
+
+
+
+
+.menucl{
+  text-align: center;
+  display: grid;
+  margin: 80px auto ;
+  width: 336px;
+  height: 1120px;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr ;
+  row-gap: 80px;
+  column-gap: 20px;
+  line-height: 1.6;
+}
+.rankcl{
+  text-align: center;
+  display: grid;
+  margin: 80px auto;
+  width: 336px;
+  height: 1290px;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr ;
+  row-gap: 80px;
+  column-gap: 20px;
+  line-height: 1.6;
+}
+
+.menucl img,.rankcl img{
+  width: 157px;
+  height: 157px;
+}
+
+.itmName,.tax{
+  margin: 20px 0 20px;
+}
+
+.menucl p,.rankcl p{
+  background-color: #7F5539;
+  color: #fff;
+  width: 148px;
+  height: 36px;
+  line-height: 2;
+  margin: 20px auto 0 auto;
+}
+
+.tax{
+  color: #BF0000;
+}
+
+
+.rank{
+  display: inline-block;
+  background-color: #E8C2CA;
+  line-height: 2.5;
+  color: #fff;
+  width: 35px;
+  height: 35px;
+  margin: 0 auto 20px;
+}
+
+.rankcl .rank1{
+  background-color: #FFD233;
+}
+
+.rankcl .rank2{
+  background-color: #CCC;
+}
+
+.rankcl .rank3{
+  background-color: #D27C2C;
+}
+
+
+
+.itemDetail,.itemDetail>*{
+  margin: 10px ;
+}
+
+.itemName{
+  font-weight: bold;
+  margin: 20px;
+}
+
+.itemDetail select{
+  border: 1px #7F5539 solid;
+  width: 56px;
+  height: 36px;
+}
+
+.itemDetail form{
+  width: fit-content;
+}
+
+.itemDetail .itemform{
+  margin-top: 30px;
+}
+
+.cartIn{
+  text-align: center;
+  background-color: #7F5539;
+  color: #fff;
+  width: 148px;
+  height: 36px;
+  line-height: 2;
+}
+
+.itemDetail button{
+  display: inline-block;
+  border: #7F5539 1px solid;
+  object-fit: contain;
+}
+
+
+.customer{
+  display: inline-block;
+  border: #7F5539 1px solid;
+}
+
+.inputForm{
+  text-align: center;
+  background-color: #7F5539;
+  color: #fff;
+  width:fit-content;
+  padding: 12px 38px;
+  height: 36px;
+  line-height: 1;
+  margin: 0 auto;
+}
+
+.cartInput{
+  margin: 0 auto 80px;
+}
+
+.inputConfirm{
+  margin: 20px auto;
+  text-align: center;
+  background-color: #BF0000;
+  color: #fff;
+  width:fit-content;
+  padding: 12px 38px;
+  height: 36px;
+  line-height: 1;
+  margin: 0 auto; 
+}
+
+.loginFinish{
+  margin: 40px 40px 132px;
+  border: #F7D1CD 1px solid;
+
+  text-align: center;
+}
+
+.loginFinish>*{
+  margin: 20px;
+}
+.cardInsert{
+  border-top:#F7D1CD 1px solid;
+  border-bottom: #F7D1CD 1px solid;
+}
+
+h3{
+  text-align: center;
+  margin: 20px auto;
+}
+
+.confirm ol{
+  /* display: grid;
+  grid-template-columns: 60px 275px;
+  grid-template-rows:20px 20px 20px; */
+  border-top:#F7D1CD 1px solid;
+  border-bottom: #F7D1CD 1px solid;
+}
+
+.confirm ol li{
+  font-size: 12px;
+  height: 20px;
+}
+
+.confirm ol li span{
+  display: inline-block;
+  border-right: #F7D1CD 1px solid;
+  width: 60px;
+}
+
+.total{
+  margin: 20px auto;
+  width: 335px;
+  height: 148px;
+  place-content: center;
+  border: #FFD233 1px solid;
+  text-align: center;
+}
+
+.calc a{
+  border: none;
+  font-weight: demilight;
+  font-size: 12px;
+}
+
+.recalc{
+  background-color: #ccc;
+  width: 140px;
+  text-align: center;
+  color: #000;
+
+}
+
+.cardInform{
+  font-size: 12px;
+}
+
+.customerConfirm{
+  font-size: 12px;
+}
+
+.customerConfirm p{
+  margin: 20px 40px;
+}
+
+.customerConfirm span{
+  color: #000;
+  border-left: #7F5539 1px solid;
+}
+
+footer{
+background-color: #D6CDCD;
+padding: 12px;
+position: relative;
+}
+
+footer div:first-child{
+margin-bottom: 12px;
+}
+
+footer div p{
+  border-left: #B392AC solid 1px;
+  height: 20px;
+  margin-bottom: 20px;
+  padding-left: 12px;
+}
+
+footer div:nth-child(2){
+  margin-bottom: 92px;
+}
+
+footer div img{
+  width: 32px;
+  height: 32px;
+  margin-right: 20px; 
+}
+
+footer>img{
+  position: absolute;
+  width: 72px;
+  height: 64px;
+right: 12px;
+bottom: 52px;
+}
+
+footer>p{
+  height: 32px;
+  border-top: #7F5539 solid 2px;
+  text-align: center;
+  line-height: 2;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (min-width:768px){
+
+  body{
+    font-size: 24px;
+  }
+  
+main{
+  margin: 0 auto;
+}
+
+.hero{
+  height: 593px;}
+
+  h1{
+    font-size: 32px;
+    margin: 80px auto;
+  }
+  h2{
+    margin:80px auto ;
+  }
+  
+.s2{
+  height: 667px;
+  background: url(../images/unsplash2.png) center top;
+  background-size: cover;
+}
+  header nav{
+    padding: 32px 95px;
+  }
+
+  header form{
+    background-color: #b392ac;
+    padding: 12px 95px 12px 0;
+    text-align: right;
+  }
+  
+  header>img{
+    width:87px;
+    height:78px;
+  }
+
+  header nav div img{
+    height: 54px;
+    gap: 40px;
+    justify-content: space-between;
+  }
+
+  header ul img{
+    margin: 20px;
+  }
+
+  .gMenu .menuIcon {
+    width: 50px;
+    height: 50px;
+    padding-top: 57px;
+    padding-left: 120px;
+}
+
+.gMenu .menuIcon .navicon {
+  width: 50px; /* 長さ */
+
+}
+
+.gMenu .menuBtn:checked ~ .menu {
+  max-height: 418px; /* ★チェックボックスがオンの時高さを338pxにして表示させます */
+  padding-bottom: 40px;
+}
+.gMenu .menuIcon .navicon::before {top: 20px;} /* 位置を上にずらしています */
+.gMenu .menuIcon .navicon::after {top: -20px;} /* 位置を下にずらしています */
+
+.gMenu .menu li a {
+  margin: 0 auto;
+  display: block;
+  border-bottom: #FFF 1px solid;
+  width: 520px;
+  height: 48px;
+  text-decoration: none;
+  text-transform: uppercase;
+  line-height: 0;
+}
+
+footer div:first-child{
+  display: flex;
+  margin-left: 102px;
+}
+
+footer div p{
+  font-size: 16px;
+  line-height: 2.5;
+  height: 52px;
+  width:fit-content;
+  margin-right: 62px;
+}
+
+
+footer img{
+  width: 144px;
+  height: 128px;
+  right: 46%;
+  top: 124px;
+}
+
+footer>div:nth-of-type(2){
+  width: fit-content;
+  margin: 264px auto 40px;
+}
+
+
+.s1 {
+  margin: 80px auto;
+  width: 1020px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 480px 257px;
+  gap: 80px;
+}
+
+
+
+.s2 p{
+   padding-top: 200px;
+}
+
+.s2 p span:first-child{
+  font-size: 36px;
+}
+
+
+.menucl img,.rankcl img{
+  width: 320px;
+  height: 320px;
+}
+
+
+.menucl{
+  display: grid;
+  margin: 120px auto;
+  width: 1080px;
+  height: 1186px;
+  grid-template-rows: 1fr 1fr ;
+  grid-template-columns: 1fr 1fr 1fr;
+  row-gap: 120px;
+  column-gap: 60px;
+}
+.rankcl{
+  display: grid;
+  margin: 120px auto;
+  width: 1080px;
+  height: 1346px;
+  grid-template-rows: 1fr 1fr ;
+  grid-template-columns: 1fr 1fr 1fr;
+  row-gap: 120px;
+  column-gap: 60px;
+}
+
+.menucl p,.rankcl p{
+  width: 260px;
+  height: 52px;
+  line-height: 2;
+}
+
+.rank{
+  width: 60px;
+  height: 60px;
+}
+
+.itemDetail{
+  width: 1200px;
+  margin: 80px;
+  display: flex;
+}
+
+.itemDetail>*{
+gap: 44px;
+}
+
+.itemDetail>div>*{
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.itemDetail div .itemName{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.itemDetail>img{
+  width: 540px;
+  height: 540px;
+}
+
+.inputForm{
+  height: 52px;
+padding: 16px 60px;
+line-height: 1;
+}
+
+
+.cartInput{
+  margin: 0 auto 120px;
+}
+
+.inputConfirm{
+  margin: 20px auto;
+  padding: 16px 60px;
+  height: 52px;
+  line-height: 1;
+}
+
+.cartIn{
+  text-align: center;
+  background-color: #7F5539;
+  color: #fff;
+  width: 260px;
+  height: 52px;
+  line-height: 2;
+}
+
+.total{
+  margin: 80px auto;
+  width: 1040px;
+  height: 240px;
+}
+
+.cardInform{
+  font-size: 20px;
+}
+
+.confirm ol li{
+  height: 32px;
+}
+
+.confirm ol li span{
+  border-right: #F7D1CD 1px solid;
+  width: 100px;
+}
+}

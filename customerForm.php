@@ -1,0 +1,63 @@
+<?php
+$name=$address=$mail=$password=$furigana=$postcode_a=$postcode_b=$mail_confirm=$password_confirm='';
+if (isset($_REQUEST['customers'])) {
+	$name=$_REQUEST['customers']['name'];
+	$address=$_REQUEST['customers']['address'];
+	$mail=$_REQUEST['customers']['mail'];
+	$password=$_REQUEST['customers']['password'];
+	$furigana=$_REQUEST['customers']['furigana'];
+	$postcode_a=$_REQUEST['customers']['postcode_a'];
+	$postcode_b=$_REQUEST['customers']['postcode_b'];
+  $mail_confirm=$_REQUEST['customers']['mail_confirm'];
+  $password_confirm=$_REQUEST['customers']['password_confirm'];
+}
+echo '<h1>会員登録</h1>';
+echo '<form action="customerConfirm.php" method="post">';
+echo '<table>';
+echo '<tr><td>お名前</td><td>';
+echo '<input type="text" name="name" value="';
+if( !empty($name) ){ echo $name; }else if(isset($_SESSION['customers']['name'])){echo $_SESSION['customers']['name'];} 
+echo '" class="customer">';
+echo '</td></tr>';
+echo '<tr><td>お名前(フリガナ)</td><td>';
+echo '<input type="text" name="furigana" value="';
+if( !empty($furigana) ){ echo $furigana; }else if(isset($_SESSION['customers']['furigana'])){echo $_SESSION['customers']['furigana'];} ; 
+echo '"class="customer">';
+echo '</td></tr>';
+echo '<tr><td>郵便番号</td><td>';
+echo '<input type="text" name="postcode_a" value="';
+if( !empty($postcode_a) ){ echo $postcode_a; }else if(isset($_SESSION['customers']['postcode_a'])){echo $_SESSION['customers']['postcode_a'];} ; 
+echo '"class="customer">';
+echo '<input type="text" name="postcode_b" value="';
+if( !empty($postcode_b) ){ echo $postcode_b; }else if(isset($_SESSION['customers']['postcode_b'])){echo $_SESSION['customers']['postcode_b'];} ;
+echo '"class="customer">';
+echo '</td></tr>';
+echo '<tr><td>住所</td><td>';
+echo '<input type="text" name="address" value="';
+if( !empty($address) ){ echo $address; }else if(isset($_SESSION['customers']['address'])){echo $_SESSION['customers']['address'];} ; 
+echo '"class="customer">';
+echo '</td></tr>';
+echo '<tr><td>メールアドレス</td><td>';
+echo '<input type="text" name="mail" value="';
+if( !empty($mail) ){ echo $mail; }else if(isset($_SESSION['customers']['mail'])){echo $_SESSION['customers']['mail'];} ; 
+echo '"class="customer">';
+echo '</td></tr>';
+echo '<tr><td>メールアドレス(確認用)</td><td>';
+echo '<input type="text" name="mail_confirm" value="';
+if( !empty($mail_confirm) ){ echo $mail_confirm; }; 
+echo '"class="customer">';
+echo '</td></tr>';
+echo '<tr><td>パスワード<br><span>半角英数字8文字以上20文字以内で入力してください。※記号の使用はできません</span></td><td>';
+echo '<input type="password" name="password" value="';
+if( !empty($password) ){ echo $password; }; 
+echo '"class="customer">';
+echo '</td></tr>';
+echo '<tr><td>パスワード(確認用)</td><td>';
+echo '<input type="password" name="password_confirm" value="';
+if( !empty($password_confirm) ){ echo $password_confirm; }; 
+echo '"class="customer">';
+echo '</td></tr>';
+echo '</table>';
+echo '<input type="submit" value="入力確認する" class="inputForm">';
+echo '</form>';
+?>
